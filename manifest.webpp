@@ -1,6 +1,6 @@
 {
   "name": "À la carte",
-  "description": "A map that does what you expect",
+  "description": "A map that does what you expect.",
   "launch_path": "/src/index.html",
   "type": "privileged",
   "icons": {
