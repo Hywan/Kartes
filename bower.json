@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "vue": "~1.0.8",
-    "leaflet": "~0.7.7"
+    "leaflet": "~0.7.7",
+    "httpinvoke": "~1.4.0"
   }
 }
