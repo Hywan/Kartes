@@ -23,6 +23,7 @@
         type="search"
         name="from"
         placeholder="Search a place…"
+        autocomplete="off"
         v-on:keyup="autocomplete" />
       <output id="autocompleted" v-show="autocompleted.length > 0">
         <ul>
