@@ -1,8 +1,13 @@
-const MAPBOX_TOKEN = 'pk.eyJ1IjoiaHl3YW4iLCJhIjoiY2loNmdzM2J6MGJ0YXU3bHg3dXRpZnVxciJ9.RJgHGOG1Btr9aLyoHoyVSQ';
-const MAPZEN_API_KEY = 'vector-tiles-JfcnLuk';
+const MAPBOX_TOKEN          = 'pk.eyJ1IjoiaHl3YW4iLCJhIjoiY2loNmdzM2J6MGJ0YXU3bHg3dXRpZnVxciJ9.RJgHGOG1Btr9aLyoHoyVSQ';
+const MAPZEN_TILES_API_KEY  = 'vector-tiles-JfcnLuk';
+const MAPZEN_SEARCH_API_KEY = 'search--conohY';
 
+var model = {
+    from: '',
+    autocompleted: []
+};
 
-function Map (id)
+function Map(id)
 {
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -12,7 +17,7 @@ function Map (id)
             'osm': {
                 'type': 'vector',
                 'tiles': [
-                    'https://vector.mapzen.com/osm/all/{z}/{x}/{y}.mvt?api_key=' + MAPZEN_API_KEY
+                    'https://vector.mapzen.com/osm/all/{z}/{x}/{y}.mvt?api_key=' + MAPZEN_TILES_API_KEY
                 ]
             }
         },
@@ -706,6 +711,86 @@ document.addEventListener(
             return;
         }
 
-        var map = Map('map');
+        var map      = null;
+        var mapPopup = null;
+
+        var view = new Vue({
+            el: '[role="application"]',
+            data: model,
+            methods: {
+                autocomplete: function (event)
+                {
+                    var search = event.target.value;
+
+                    if ('' === search) {
+                        model.autocompleted = [];
+
+                        return;
+                    }
+
+                    httpinvoke(
+                        'https://search.mapzen.com/v1/autocomplete' +
+                            '?text=' + encodeURIComponent(search) +
+                            '&api_key=' + MAPZEN_SEARCH_API_KEY,
+                        'GET'
+                    ).then(function(value) {
+                        if (200 !== value.statusCode) {
+                            return;
+                        }
+
+                        var result = JSON.parse(value.body);
+
+                        if ('FeatureCollection' !== result.type) {
+                            return;
+                        }
+
+                        model.autocompleted = result.features;
+                    }, function(error) {
+                        console.log('Failure', error);
+                    });
+                },
+
+                flyToFeature: function(feature)
+                {
+                    if (null === map) {
+                        return;
+                    }
+
+                    map.flyTo({
+                        center: feature.geometry.coordinates,
+                        zoom:   13
+                    });
+                    document.querySelector('input[name="from"]').value = feature.properties.label;
+                    model.autocompleted = [];
+
+                    this.setPopup(
+                        feature.geometry.coordinates,
+                        feature.properties.name
+                    );
+
+                    return;
+                },
+
+                setPopup: function(coordinates, message)
+                {
+                    if (null === map) {
+                        return;
+                    }
+
+                    if (null === mapPopup) {
+                        mapPopup = new mapboxgl.Popup();
+                        mapPopup.addTo(map);
+                    } else {
+                        mapPopup.remove();
+                    }
+
+                    mapPopup.setLngLat(coordinates);
+                    mapPopup.setHTML('<p>' + message + '</p>');
+
+                    return;
+                }
+            }
+        })
+        map = Map('map');
     }
 );

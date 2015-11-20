@@ -12,11 +12,26 @@
 
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.4/mapbox-gl.js'></script>
     <script src="./static/vendor/vue/dist/vue.min.js"></script>
+    <script src="./static/vendor/httpinvoke/httpinvoke-browser.min.js"></script>
     <script src="./static/javascript/application.js"></script>
   </head>
 
   <body role="application">
     <div id="map"></div>
+    <form id="search">
+      <input
+        type="search"
+        name="from"
+        placeholder="Search a place…"
+        v-on:keyup="autocomplete" />
+      <output id="autocompleted" v-show="autocompleted.length > 0">
+        <ul>
+          <li v-for="feature in autocompleted">
+            <a v-on:click="flyToFeature(feature)">{{feature.properties.label}}</a>
+          </li>
+        </ul>
+      </output>
+    </form>
   </body>
 
 </html>

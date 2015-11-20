@@ -9,5 +9,49 @@ html, body {
 }
 
 body {
+    position: relative;
+    font: 1.1em/1.4em Text, Emoji;
     display: block;
+    overflow: hidden;
+}
+
+#search {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    bottom: 0;
+}
+
+input[name="from"] {
+    min-width: 200px;
+    line-height: 2em;
+    padding: 0 1em;
+    font-size: .9em;
+}
+
+#autocompleted {
+    position: absolute;
+    top: 3em;
+    left: 0;
+    bottom: 1em;
+    overflow: auto;
+}
+
+#autocompleted > ul {
+    list-style: none;
+    min-width: 400px;
+    background: #fff;
+}
+
+#autocompleted > ul > li > a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    padding: .5em 1em;
+    cursor: pointer;
+}
+
+#autocompleted > ul > li > a:hover,
+#autocompleted > ul > li > a:focus {
+    background: #eee;
 }
