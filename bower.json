@@ -1,0 +1,15 @@
+{
+  "name": "Àlacarte",
+  "homepage": "https://github.com/Hywan/a-la-carte",
+  "authors": [
+    "Ivan Enderlin <ivan.enderlin@hoa-project.net>"
+  ],
+  "description": "A map that does what you expect.",
+  "main": "/src/index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "dependencies": {
+    "vue": "~1.0.8",
+    "leaflet": "~0.7.7"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "À la carte",
+  "description": "A map that does what you expect",
+  "launch_path": "/src/index.html",
+  "type": "privileged",
+  "icons": {
+    "16": "/src/icons/icon16x16.png",
+    "48": "/src/icons/icon48x48.png",
+    "60": "/src/icons/icon60x60.png",
+    "128": "/src/icons/icon128x128.png"
+  },
+  "developer": {
+    "name": "Ivan Enderlin",
+    "url": "http://mnt.io/"
+  }
+}
