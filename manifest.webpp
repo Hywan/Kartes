@@ -1,5 +1,5 @@
 {
-  "name": "À la carte",
+  "name": "Kartes",
   "description": "A map that does what you expect.",
   "launch_path": "/src/index.html",
   "type": "privileged",
