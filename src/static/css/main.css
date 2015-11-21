@@ -1,3 +1,21 @@
+@font-face {
+    font-family: Text;
+    src: url('../Font/OpenSans-Regular.woff') format('woff'),
+         url('../Font/OpenSans-Regular.eot')  format('eot'),
+         url('../Font/OpenSans-Regular.ttf')  format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Text;
+    src: url('../Font/OpenSans-SemiBold.woff') format('woff'),
+         url('../Font/OpenSans-SemiBold.eot')  format('eot'),
+         url('../Font/OpenSans-SemiBold.ttf')  format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,10 +28,35 @@ html, body {
 
 body {
     position: relative;
-    font: 1.1em/1.4em Text, Emoji;
+    color: rgb(22, 27, 33);
+    font: 1.1em/1.4em Text;
     display: block;
     overflow: hidden;
 }
+
+.box {
+    box-shadow: 0 2px 4px rgba(136, 163, 201, .8);
+    border-radius: 2px;
+    border: 0;
+    background: rgba(255, 255, 255, .9);
+}
+
+input {
+    display: block;
+    color: rgb(97, 116, 143);
+    font-size: inherit;
+    line-height: 2em;
+    margin: 0;
+    padding: 0 1em;
+    width: 18em;
+    max-width: 75vw;
+
+    transition: color .2s ease;
+}
+
+    input:focus {
+        color: inherit;
+    }
 
 #search {
     position: absolute;
@@ -22,30 +65,25 @@ body {
     bottom: 0;
 }
 
-input[name="from"] {
-    min-width: 200px;
-    line-height: 2em;
-    padding: 0 1em;
-    font-size: .9em;
-}
-
 #autocompleted {
     position: absolute;
     top: 3em;
     left: 0;
     bottom: 1em;
-    overflow: auto;
 }
 
 #autocompleted > ul {
+    display: block;
     list-style: none;
     min-width: 400px;
-    background: #fff;
+    max-height: 100%;
+    overflow: auto;
 }
 
 #autocompleted > ul > li > a {
     display: block;
     color: inherit;
+    font-size: .9em;
     text-decoration: none;
     padding: .5em 1em;
     cursor: pointer;
@@ -53,5 +91,5 @@ input[name="from"] {
 
 #autocompleted > ul > li > a:hover,
 #autocompleted > ul > li > a:focus {
-    background: #eee;
+    background: rgba(245, 245, 245, .8);
 }
