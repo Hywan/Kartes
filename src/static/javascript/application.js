@@ -780,8 +780,6 @@ document.addEventListener(
                     if (null === mapPopup) {
                         mapPopup = new mapboxgl.Popup();
                         mapPopup.addTo(map);
-                    } else {
-                        mapPopup.remove();
                     }
 
                     mapPopup.setLngLat(coordinates);
