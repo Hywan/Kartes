@@ -7,3 +7,7 @@
 .mapboxgl-ctrl-compass {
     display: none !important;
 }
+
+.mapboxgl-popup-close-button {
+    display: none !important;
+}

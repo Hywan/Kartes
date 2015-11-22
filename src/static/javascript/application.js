@@ -711,8 +711,7 @@ document.addEventListener(
             return;
         }
 
-        var map      = null;
-        var mapPopup = null;
+        var map = null;
 
         var view = new Vue({
             el: '[role="application"]',
@@ -771,21 +770,26 @@ document.addEventListener(
                     return;
                 },
 
-                setPopup: function(coordinates, message)
+                setPopup: new function()
                 {
-                    if (null === map) {
+                    var popup = null;
+
+                    return function(coordinates, message) {
+                        if (null === map) {
+                            return;
+                        }
+
+                        if (null !== popup) {
+                            popup.remove(map);
+                        }
+
+                        popup = new mapboxgl.Popup();
+                        popup.setLngLat(coordinates);
+                        popup.setHTML('<p>' + message + '</p>');
+                        popup.addTo(map);
+
                         return;
-                    }
-
-                    if (null === mapPopup) {
-                        mapPopup = new mapboxgl.Popup();
-                        mapPopup.addTo(map);
-                    }
-
-                    mapPopup.setLngLat(coordinates);
-                    mapPopup.setHTML('<p>' + message + '</p>');
-
-                    return;
+                    };
                 }
             }
         })
