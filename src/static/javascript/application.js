@@ -781,7 +781,7 @@ document.addEventListener(
                         }, function (error) {
                             console.log('Failure', error);
                         });
-                    };
+                    }.throttle(550);
                 },
 
                 flyToFeature: function (feature)
