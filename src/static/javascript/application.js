@@ -717,36 +717,45 @@ document.addEventListener(
             el: '[role="application"]',
             data: model,
             methods: {
-                autocomplete: function (event)
+                autocomplete: new function()
                 {
-                    var search = event.target.value;
+                    var lastReceivedTimestamp = 0;
 
-                    if ('' === search) {
-                        model.autocompleted = [];
+                    return function (event) {
+                        var search = event.target.value;
 
-                        return;
-                    }
+                        if ('' === search) {
+                            model.autocompleted = [];
 
-                    httpinvoke(
-                        'https://search.mapzen.com/v1/autocomplete' +
-                            '?text=' + encodeURIComponent(search) +
-                            '&api_key=' + MAPZEN_SEARCH_API_KEY,
-                        'GET'
-                    ).then(function(value) {
-                        if (200 !== value.statusCode) {
                             return;
                         }
 
-                        var result = JSON.parse(value.body);
+                        httpinvoke(
+                            'https://search.mapzen.com/v1/autocomplete' +
+                                '?text=' + encodeURIComponent(search) +
+                                '&api_key=' + MAPZEN_SEARCH_API_KEY,
+                            'GET'
+                        ).then(function(value) {
+                            if (200 !== value.statusCode) {
+                                return;
+                            }
 
-                        if ('FeatureCollection' !== result.type) {
-                            return;
-                        }
+                            var result = JSON.parse(value.body);
 
-                        model.autocompleted = result.features;
-                    }, function(error) {
-                        console.log('Failure', error);
-                    });
+                            if ('FeatureCollection' !== result.type) {
+                                return;
+                            }
+
+                            if (lastReceivedTimestamp > result.geocoding.timestamp) {
+                                return;
+                            }
+
+                            lastReceivedTimestamp = result.geocoding.timestamp;
+                            model.autocompleted   = result.features;
+                        }, function(error) {
+                            console.log('Failure', error);
+                        });
+                    };
                 },
 
                 flyToFeature: function(feature)
