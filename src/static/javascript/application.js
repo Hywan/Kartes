@@ -743,7 +743,7 @@ document.addEventListener(
             el: '[role="application"]',
             data: model,
             methods: {
-                autocomplete: new function()
+                autocomplete: new function ()
                 {
                     var lastReceivedTimestamp = 0;
 
@@ -761,7 +761,7 @@ document.addEventListener(
                                 '?text=' + encodeURIComponent(search) +
                                 '&api_key=' + MAPZEN_SEARCH_API_KEY,
                             'GET'
-                        ).then(function(value) {
+                        ).then(function (value) {
                             if (200 !== value.statusCode) {
                                 return;
                             }
@@ -778,13 +778,13 @@ document.addEventListener(
 
                             lastReceivedTimestamp = result.geocoding.timestamp;
                             model.autocompleted   = result.features;
-                        }, function(error) {
+                        }, function (error) {
                             console.log('Failure', error);
                         });
                     };
                 },
 
-                flyToFeature: function(feature)
+                flyToFeature: function (feature)
                 {
                     if (null === map) {
                         return;
@@ -805,11 +805,11 @@ document.addEventListener(
                     return;
                 },
 
-                setPopup: new function()
+                setPopup: new function ()
                 {
                     var popup = null;
 
-                    return function(coordinates, message) {
+                    return function (coordinates, message) {
                         if (null === map) {
                             return;
                         }
