@@ -1,17 +1,17 @@
 @font-face {
     font-family: Text;
-    src: url('../Font/OpenSans-Regular.woff') format('woff'),
-         url('../Font/OpenSans-Regular.eot')  format('eot'),
-         url('../Font/OpenSans-Regular.ttf')  format('truetype');
+    src: url('../font/OpenSans-Regular.woff') format('woff'),
+         url('../font/OpenSans-Regular.eot')  format('eot'),
+         url('../font/OpenSans-Regular.ttf')  format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: Text;
-    src: url('../Font/OpenSans-SemiBold.woff') format('woff'),
-         url('../Font/OpenSans-SemiBold.eot')  format('eot'),
-         url('../Font/OpenSans-SemiBold.ttf')  format('truetype');
+    src: url('../font/OpenSans-SemiBold.woff') format('woff'),
+         url('../font/OpenSans-SemiBold.eot')  format('eot'),
+         url('../font/OpenSans-SemiBold.ttf')  format('truetype');
     font-weight: bold;
     font-style: normal;
 }
