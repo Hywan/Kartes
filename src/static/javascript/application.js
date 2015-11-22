@@ -704,6 +704,32 @@ function Map(id)
     return map;
 }
 
+Function.prototype.throttle = function (threshhold)
+{
+    var lambda       = this;
+    var previousTick = null;
+    var setTimeoutId = null;
+
+    return function () {
+        var currentTick = (new Date()).getTime();
+        var args        = arguments;
+
+        if (previousTick && currentTick < previousTick + threshhold) {
+            clearTimeout(setTimeoutId);
+            setTimeoutId = setTimeout(
+                function () {
+                    previousTick = currentTick;
+                    lambda.apply(null, args);
+                },
+                threshhold
+            );
+        } else {
+            previousTick = currentTick;
+            lambda.apply(null, args);
+        }
+    };
+};
+
 document.addEventListener(
     'readystatechange',
     function () {
